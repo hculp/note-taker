@@ -1,4 +1,5 @@
 const notes = require('express').Router();
+const fs = require('fs');
 const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
 const { v4: uuidv4 } = require('uuid');
 const db = require('../db/db.json');
