@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const fs = require("fs");
 const db = require('./db/db.json');
+const api = require('./routes/index.js');
 
 // Create Port for express server to run on
 const PORT = process.env.port || 3001;
@@ -43,7 +44,9 @@ app.route('/api/notes')
 
         for (let i=0; i < db.length; i++) {
             let note = db[i];
-            if (note.id >)
+            if (note.id > maxNote) {
+                maxNote = note.id;
+            }
         }
     })
 
