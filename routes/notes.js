@@ -46,7 +46,7 @@ notes.delete('/:id', (req, res) => {
         });
         res.json(db);
     } else {
-        res.error('Error in deleting note');
+        res.json({message: 'Error in deleting note'});
     }
 })
 
