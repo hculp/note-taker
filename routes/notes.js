@@ -31,7 +31,7 @@ notes.post('/', (req, res) => {
 
 // DELETE route for notes
 notes.delete('/:id', (req, res) => {
-    const {id} = req.params.id;
+    const {id} = req.params;
 
     if (id) {
         for (let i=0; i < db.length; i++) {
