@@ -1,8 +1,6 @@
 // Import express and other dependecies
 const express = require('express');
 const path = require('path');
-const fs = require("fs");
-const db = require('./db/db.json');
 const api = require('./routes/index.js');
 
 // Create Port for express server to run on
@@ -30,30 +28,8 @@ app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, './public/notes.html'))
 );
 
-//
-app.route('/api/notes')
-    //
-    .get( function (req,res) {res.json(db)})
-
-    //
-    .post(function (req,res) {
-        let dbPath = path.join(__dirname, './db/db.json');
-        let notes = req.body;
-
-        let maxNote = 100;
-
-        for (let i=0; i < db.length; i++) {
-            let note = db[i];
-            if (note.id > maxNote) {
-                maxNote = note.id;
-            }
-        }
-    })
-
-
-
 
 // Listener for connections on specified port
 app.listen(PORT, () =>
-    console.log(`App listening at http://localhost:${PORT}`)
+    console.log(`Server running at:${PORT}`)
 );
