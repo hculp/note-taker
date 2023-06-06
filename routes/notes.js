@@ -35,16 +35,10 @@ notes.delete('/:id', (req, res) => {
     
     if (id) {
         fs.readFile('db/db.json', 'utf8',  (err, data) => {
-        
             const parsedData = JSON.parse(data);
 
             if(parsedData.some(data => data.id === id)) {
-
-                console.log('notes:', parsedData);
-
                 const filteredNotes = parsedData.filter(note => note.id !== id);
-
-                console.log('filteredNotes:', filteredNotes);
 
                 fs.writeFile('db/db.json', JSON.stringify(filteredNotes), (err) => {
                     err ? console.log(err) : console.log('Note deleted')
@@ -52,8 +46,7 @@ notes.delete('/:id', (req, res) => {
                 res.json(db);
             } else {
                 res.json({message: 'Note can\'t found'});
-            }
-        
+            }       
         });
     } else {
         res.json({message: 'Error in deleting note'});
