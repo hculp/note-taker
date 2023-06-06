@@ -32,22 +32,32 @@ notes.post('/', (req, res) => {
 // DELETE route for notes
 notes.delete('/:id', (req, res) => {
     const {id} = req.params;
-
+    
     if (id) {
-        for (let i=0; i < db.length; i++) {
-            if (id = db[i].id) {
-                db.splice(i,1);
-                break;
-            }
-        }
+        fs.readFile('db/db.json', 'utf8',  (err, data) => {
+        
+            const parsedData = JSON.parse(data);
 
-        fs.writeFileSync(db, JSON.stringify(db), (err) => {
-            err ? console.log(err) : console.log('Note deleted')
+            if(parsedData.some(data => data.id === id)) {
+
+                console.log('notes:', parsedData);
+
+                const filteredNotes = parsedData.filter(note => note.id !== id);
+
+                console.log('filteredNotes:', filteredNotes);
+
+                fs.writeFile('db/db.json', JSON.stringify(filteredNotes), (err) => {
+                    err ? console.log(err) : console.log('Note deleted')
+                });
+                res.json(db);
+            } else {
+                res.json({message: 'Note can\'t found'});
+            }
+        
         });
-        res.json(db);
     } else {
         res.json({message: 'Error in deleting note'});
-    }
+    }    
 })
 
 module.exports = notes;
